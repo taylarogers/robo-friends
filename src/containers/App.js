@@ -1,9 +1,9 @@
 import React from 'react';
-import CardList from './CardList';
-import SearchBox from './SearchBox';
-import Scroll from './Scroll';
+import CardList from '../components/CardList';
+import SearchBox from '../components/SearchBox';
+import Scroll from '../components/Scroll';
 import './App.css';
-import './SearchBox.css';
+import '../components/SearchBox.css';
 
 class App extends React.Component {
     // Constructor to define state of the application
@@ -36,13 +36,15 @@ class App extends React.Component {
     }
 
     render = () => {
+        const {robots, searchField} = this.state;
+
         // Filter the robots based on search criteria
-        const filteredRobots = this.state.robots.filter(robot => {
-            return robot.name.toLowerCase().includes(this.state.searchField.toLowerCase())
+        const filteredRobots = robots.filter(robot => {
+            return robot.name.toLowerCase().includes(searchField.toLowerCase())
         })
 
         // Waiting for robots to be received
-        if (this.state.robots.length === 0) {
+        if (robots.length === 0) {
             return <h1 className='tc f1'> Loading... </h1>
         }
         else {
