@@ -36,6 +36,7 @@ class App extends React.Component {
     }
 
     render = () => {
+        // All occurances of robots and searchField will now be accessed using the this.state versions
         const {robots, searchField} = this.state;
 
         // Filter the robots based on search criteria
