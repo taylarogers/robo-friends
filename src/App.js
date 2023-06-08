@@ -1,7 +1,6 @@
 import React from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
-import { robots } from './robots';
 import './App.css';
 import './SearchBox.css'
 
@@ -12,9 +11,21 @@ class App extends React.Component {
 
         // Robots and what is in the search field describes the state
         this.state = {
-            robots: robots,
+            robots: [],
             searchField: ""
         }
+    }
+
+    // When component has been mounted onto document
+    componentDidMount() {
+        // Make HTTP request to receive list of users
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => {
+                return response.json();
+            })
+            .then(users => {
+                this.setState({ robots: users})
+            }) 
     }
 
     // Every time input changes
@@ -24,14 +35,10 @@ class App extends React.Component {
     }
 
     render = () => {
-        console.log(this.state.searchField)
-
         // Filter the robots based on search criteria
         const filteredRobots = this.state.robots.filter(robot => {
             return robot.name.toLowerCase().includes(this.state.searchField.toLowerCase())
         })
-
-        console.log(filteredRobots)
 
         return (
             <div className="tc">
